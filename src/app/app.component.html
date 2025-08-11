@@ -1,14 +1,15 @@
 <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
   <div class="container-fluid d-flex align-items-center justify-content-end">
-    <a class="navbar-brand" href="#">
-      <div class="profile">
-
-      </div>
+    <a class="navbar-brand " (click)="toggleStatus()">
+      <h6 class="profile d-flex align-items-center mb-0"
+        [ngClass]="user.status === 'online' ? 'text-success' : 'text-danger'">
+        {{user.status}}
+      </h6>
     </a>
   </div>
 </nav>
 
-<main>
+<main class="p-3">
   <button class="toggle-btn" (click)="toggle()">☰ Menu</button>
 
   <div class="sidebar" [class.open]="isOpen">
@@ -17,7 +18,18 @@
       <p>Sidebar content…</p>
     </aside>
   </div>
+
+  <h3>Live Chat (Signals)</h3>
+
+  <ul>
+    <li *ngFor="let m of messages()">{{ m }}</li>
+  </ul>
+
+  <form (ngSubmit)="send()" class="form-group d-flex align-items-center">
+    <input class="form-control w-25 me-3" type="text" placeholder="Type a message…" [ngModel]="newMessage()"
+      (ngModelChange)="newMessage.set($event)" name="msg" autofocus />
+    <button class="btn btn-secondary" type="submit">Send</button>
+  </form>
+
+
 </main>
-
-
-
